@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-black">
+      <body className="bg-[#0C0C0C]">
       <h1 className="px-20 py-10 text-[#09846E] text-2xl font-bold">Socials.</h1>
         {children}
       </body>
