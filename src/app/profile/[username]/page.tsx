@@ -1,5 +1,3 @@
-// app/profile/[username]/page.tsx
-import React from "react";
 
 interface ProfileData {
   id: string;
@@ -107,7 +105,7 @@ export default async function ProfilePage({
     : null;
 
   return (
-    <div className="text-white p-6 max-w-2xl mx-auto bg-gray-900 rounded-lg shadow-lg">
+    <div className="text-white p-6 max-w-2xl mx-auto bg-gray-900 rounded-lg shadow-lg mb-8">
       <div className="flex items-center space-x-4">
         {profile.profile_image_url && (
           // eslint-disable-next-line @next/next/no-img-element
