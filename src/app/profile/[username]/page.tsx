@@ -1,4 +1,3 @@
-
 interface ProfileData {
   id: string;
   name: string;
@@ -18,7 +17,6 @@ interface ProfileData {
     listed_count: number;
   };
 }
-
 
 // Function to fetch Twitter profile data
 async function fetchProfileData(username: string): Promise<ProfileData | null> {
@@ -52,7 +50,6 @@ export default async function ProfilePage({
     return <div>Profile not found</div>;
   }
 
-  
   return (
     <div className="text-white p-6 max-w-2xl mx-auto bg-gray-900 rounded-lg shadow-lg mb-8">
       <div className="flex items-center space-x-4">
@@ -100,28 +97,32 @@ export default async function ProfilePage({
         {profile.public_metrics ? (
           <>
             <p className="bg-blue-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-blue-900 hover:shadow-xl transition-all duration-300 group">
-              <span className="text-2xl font-semibold">Followers</span><br />
+              <span className="text-2xl font-semibold">Followers</span>
+              <br />
               <span className="text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {profile.public_metrics.followers_count}
               </span>
             </p>
 
             <p className="bg-green-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-green-900 hover:shadow-xl transition-all duration-300 group">
-              <span className="text-2xl font-semibold">Following</span><br />
+              <span className="text-2xl font-semibold">Following</span>
+              <br />
               <span className="text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {profile.public_metrics.following_count}
               </span>
             </p>
 
             <p className="bg-purple-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-purple-900 hover:shadow-xl transition-all duration-300 group">
-              <span className="text-2xl font-semibold">Tweets</span><br />
+              <span className="text-2xl font-semibold">Tweets</span>
+              <br />
               <span className="text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {profile.public_metrics.tweet_count}
               </span>
             </p>
 
             <p className="bg-yellow-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-yellow-900 hover:shadow-xl transition-all duration-300 group">
-              <span className="text-2xl font-semibold">Listed</span><br />
+              <span className="text-2xl font-semibold">Listed</span>
+              <br />
               <span className="text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {profile.public_metrics.listed_count}
               </span>
