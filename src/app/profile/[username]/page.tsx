@@ -1,3 +1,14 @@
+'use client';
+
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 interface ProfileData {
   id: string;
   name: string;
@@ -40,6 +51,7 @@ async function fetchProfileData(username: string): Promise<ProfileData | null> {
 }
 
 // Profile page component with server-side data fetching
+// eslint-disable-next-line @next/next/no-async-client-component
 export default async function ProfilePage({
   params,
 }: {
@@ -49,6 +61,16 @@ export default async function ProfilePage({
   if (!profile) {
     return <div>Profile not found</div>;
   }
+
+  // Prepare data for Recharts
+  const chartData = profile.public_metrics
+    ? [
+        { name: "Followers", value: profile.public_metrics.followers_count },
+        { name: "Following", value: profile.public_metrics.following_count },
+        { name: "Tweets", value: profile.public_metrics.tweet_count },
+        { name: "Listed", value: profile.public_metrics.listed_count },
+      ]
+    : [];
 
   return (
     <div className="text-white p-6 max-w-2xl mx-auto bg-gray-900 rounded-lg shadow-lg mb-8">
@@ -131,6 +153,29 @@ export default async function ProfilePage({
         ) : (
           <p className="col-span-4 text-center bg-red-600 text-white py-4 rounded-lg">
             Public metrics not available
+          </p>
+        )}
+      </div>
+
+      {/* Recharts Graph */}
+      <div className="mt-6">
+        <h3 className="text-lg font-bold mb-4">Graphical Representation</h3>
+        {chartData.length > 0 ? (
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart
+              data={chartData}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <p className="text-center bg-red-600 text-white py-4 rounded-lg">
+            No data available for graphical representation
           </p>
         )}
       </div>
