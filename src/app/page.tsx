@@ -11,7 +11,7 @@ export default function Home() {
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (username) {
-      router.push(`/profile/${username}`);
+      router.push(`/${username}`);
     }
   };
 
