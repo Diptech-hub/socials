@@ -27,17 +27,19 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await response.json();
-    return Response.json(data.data, { status: 200 });
 
      // Add CORS headers
-     return new NextResponse(JSON.stringify(data.data), {
+     return new Response(JSON.stringify(data.data), {
       status: 200,
       headers: {
+        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
     });
+    
+    return Response.json(data.data, { status: 200 });
 
   } catch (error) {
     console.error("Error fetching Twitter profile:", error);
