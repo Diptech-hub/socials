@@ -38,21 +38,20 @@ export default function ProfilePage({ params }: { params: { username: string } }
 
   useEffect(() => {
     async function fetchProfileData() {
-      try {
-        const res = await fetch(`/api/twitter-profile?username=${params.username}`);
-        
-        if (!res.ok) {
-          throw new Error("Failed to fetch profile data");
-        }
+      setLoading(true);
+      setError("");
 
-        const data = await res.json();
-        setProfile(data);
-      } catch (err) {
-        setError("Error fetching profile data. Please try again.");
-        console.error(err);
-      } finally {
+      const res = await fetch(`/api/twitter-profile?username=${params.username}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "An unexpected error occurred.");
         setLoading(false);
+        return;
       }
+
+      setProfile(data);
+      setLoading(false);
     }
 
     fetchProfileData();
