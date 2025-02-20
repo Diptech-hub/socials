@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const response = await fetch(
-      `https://api.twitter.com/2/users/by/username/${username}?user.fields=id,name,username,profile_image_url,public_metrics,location,created_at`,
+      `https://api.twitter.com/2/users/by/username/${username}?user.fields=id,name,username,profile_image_url,public_metrics,location,created_at,description`,
       {
         headers: {
           Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
