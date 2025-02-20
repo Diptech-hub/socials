@@ -90,7 +90,7 @@ export default function ProfilePage({ params }: { params: { username: string } }
       </div>
 
       <div className="flex justify-between px-6 pb-4 mt-4 text-sm text-gray-300">
-        <p>Location: {profile.location || "N/A"}</p>
+        <p>Location: {profile.location && profile.location.trim() !== "" ? profile.location : "N/A"}</p>
         {profile.url && (
           <p>
             URL:{" "}

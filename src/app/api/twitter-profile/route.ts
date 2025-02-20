@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const response = await fetch(
-      `https://api.twitter.com/2/users/by/username/${username}?user.fields=id,name,username,profile_image_url,public_metrics`,
+      `https://api.twitter.com/2/users/by/username/${username}?user.fields=id,name,username,profile_image_url,public_metrics,location,created_at`,
       {
         headers: {
           Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
     });
-    
+
     return Response.json(data.data, { status: 200 });
 
   } catch (error) {
