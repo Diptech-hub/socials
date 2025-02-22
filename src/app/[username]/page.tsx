@@ -32,7 +32,11 @@ interface ProfileData {
   };
 }
 
-export default function ProfilePage({ params }: { params: { username: string } }) {
+export default function ProfilePage({
+  params,
+}: {
+  params: { username: string };
+}) {
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -42,7 +46,9 @@ export default function ProfilePage({ params }: { params: { username: string } }
       setLoading(true);
       setError("");
 
-      const res = await fetch(`/api/twitter-profile?username=${params.username}`);
+      const res = await fetch(
+        `/api/twitter-profile?username=${params.username}`
+      );
       const data = await res.json();
 
       if (!res.ok) {
@@ -60,7 +66,8 @@ export default function ProfilePage({ params }: { params: { username: string } }
 
   if (loading) return <p className="text-center text-white">Loading...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
-  if (!profile) return <p className="text-center text-white">Profile not found.</p>;
+  if (!profile)
+    return <p className="text-center text-white">Profile not found.</p>;
 
   // Prepare data for Recharts
   const chartData = profile.public_metrics
@@ -85,51 +92,78 @@ export default function ProfilePage({ params }: { params: { username: string } }
         <div>
           <h1 className="text-2xl font-bold">{profile.name}</h1>
           <p className="text-lg">@{profile.username}</p>
-          <p className="mt-2 text-sm text-gray-400">{profile.description || "No description available"}</p>
+          <p className="mt-2 text-sm text-gray-400">
+            {profile.description || "No description available"}
+          </p>
         </div>
       </div>
 
       <div className="flex justify-between px-6 pb-4 mt-4 text-sm text-gray-300">
-        <p>Location: {profile.location && profile.location.trim() !== "" ? profile.location : "N/A"}</p>
+        <p>
+          Location:{" "}
+          {profile.location && profile.location.trim() !== ""
+            ? profile.location
+            : "N/A"}
+        </p>
         {profile.url && (
           <p>
             URL:{" "}
-            <a href={profile.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+            <a
+              href={profile.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
+            >
               {profile.url}
             </a>
           </p>
         )}
         <p>
-          Account Created: {profile.created_at ? new Date(profile.created_at).toLocaleDateString() : "Date not available"}
+          Account Created:{" "}
+          {profile.created_at
+            ? new Date(profile.created_at).toLocaleDateString()
+            : "Date not available"}
         </p>
       </div>
 
-      <div className="mt-8 px-6 grid grid-cols-4 gap-4">
+      <div className="mt-8 px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {profile.public_metrics ? (
           <>
-            <p className="bg-blue-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-blue-900 transition">
-              <span className="text-2xl font-semibold">Followers</span>
+            <p className="bg-blue-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-blue-900 transition w-full">
+              <span className="text-xl md:text-2xl font-semibold">
+                Followers
+              </span>
               <br />
-              <span className="text-lg font-bold">{profile.public_metrics.followers_count}</span>
+              <span className="text-lg font-bold">
+                {profile.public_metrics.followers_count}
+              </span>
             </p>
-            <p className="bg-green-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-green-900 transition">
-              <span className="text-2xl font-semibold">Following</span>
+            <p className="bg-green-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-green-900 transition w-full">
+              <span className="text-xl md:text-2xl font-semibold">
+                Following
+              </span>
               <br />
-              <span className="text-lg font-bold">{profile.public_metrics.following_count}</span>
+              <span className="text-lg font-bold">
+                {profile.public_metrics.following_count}
+              </span>
             </p>
-            <p className="bg-purple-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-purple-900 transition">
-              <span className="text-2xl font-semibold">Tweets</span>
+            <p className="bg-purple-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-purple-900 transition w-full">
+              <span className="text-xl md:text-2xl font-semibold">Tweets</span>
               <br />
-              <span className="text-lg font-bold">{profile.public_metrics.tweet_count}</span>
+              <span className="text-lg font-bold">
+                {profile.public_metrics.tweet_count}
+              </span>
             </p>
-            <p className="bg-yellow-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-yellow-900 transition">
-              <span className="text-2xl font-semibold">Listed</span>
+            <p className="bg-yellow-800 text-white text-center py-4 rounded-lg shadow-lg hover:bg-yellow-900 transition w-full">
+              <span className="text-xl md:text-2xl font-semibold">Listed</span>
               <br />
-              <span className="text-lg font-bold">{profile.public_metrics.listed_count}</span>
+              <span className="text-lg font-bold">
+                {profile.public_metrics.listed_count}
+              </span>
             </p>
           </>
         ) : (
-          <p className="col-span-4 text-center bg-red-600 text-white py-4 rounded-lg">
+          <p className="col-span-1 sm:col-span-2 md:col-span-4 text-center bg-red-600 text-white py-4 rounded-lg">
             Public metrics not available
           </p>
         )}
@@ -140,7 +174,10 @@ export default function ProfilePage({ params }: { params: { username: string } }
         <h3 className="text-lg font-bold mb-4">Graphical Representation</h3>
         {chartData.length > 0 ? (
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <BarChart
+              data={chartData}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
@@ -149,7 +186,9 @@ export default function ProfilePage({ params }: { params: { username: string } }
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <p className="text-center bg-red-600 text-white py-4 rounded-lg">No data available for graphical representation</p>
+          <p className="text-center bg-red-600 text-white py-4 rounded-lg">
+            No data available for graphical representation
+          </p>
         )}
       </div>
     </div>

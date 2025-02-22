@@ -14,8 +14,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[#0C0C0C]">
-      <h1 className="px-20 py-10 text-[#09846E] text-2xl font-bold">Socials.</h1>
-        {children}
+        <div className="max-w-screen-xl mx-auto px-6 md:px-12">
+          <h1 className="px-10 md:px-20 py-10 text-[#09846E] text-xl md:text-2xl font-bold">
+            Socials.
+          </h1>
+          {children}
+        </div>
       </body>
     </html>
   );
